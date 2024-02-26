@@ -21,6 +21,12 @@ const darkTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
 const App = () => {
   const { path } = usePath();
 
@@ -28,7 +34,7 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Header />
         <Guard>
