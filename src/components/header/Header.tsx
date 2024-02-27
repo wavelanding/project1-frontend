@@ -10,6 +10,7 @@ import Settings from "./Settings";
 import { useReactiveVar } from "@apollo/client";
 import { authenticatedVar } from "../../constants/authenticated";
 import { Page } from "../../interfaces/page.interface";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 
 const pages: Page[] = [
   {
@@ -29,9 +30,8 @@ const unauthenticatedPages: Page[] = [
   },
 ];
 
-const Header = () => {
+const Header = ({ toggleTheme }: any) => {
   const authenticated = useReactiveVar(authenticatedVar);
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -42,6 +42,14 @@ const Header = () => {
           />
           <MobileBranding />
           <Navigation pages={authenticated ? pages : unauthenticatedPages} />
+
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch onChange={toggleTheme} color="warning" />}
+              label="change theme"
+            />
+          </FormGroup>
+          {/* <Switch onChange={toggleTheme} color="warning" title="change" /> */}
           {authenticated && <Settings />}
         </Toolbar>
       </Container>

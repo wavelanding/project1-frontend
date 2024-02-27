@@ -1,10 +1,4 @@
-import {
-  Container,
-  CssBaseline,
-  Grid,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
+import { Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import router from "./components/Routes";
 import { ApolloProvider } from "@apollo/client";
@@ -14,29 +8,19 @@ import Header from "./components/header/Header";
 import Snackbar from "./components/snackbar/Snackbar";
 import ChatList from "./components/chat-list/ChatList";
 import { usePath } from "./hooks/usePath";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+import { useThemeToggle } from "./hooks/useThemeToggle";
 
 const App = () => {
   const { path } = usePath();
-
   const showChatList = path === "/" || path.includes("chats");
 
+  //set up hook here and pass the function down to header.
+  const { theme, toggleTheme } = useThemeToggle();
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header />
+        <Header toggleTheme={toggleTheme} />
         <Guard>
           <Container maxWidth="xl" sx={{ marginTop: "1rem" }}>
             {showChatList ? (
