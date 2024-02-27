@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
-import ForumIcon from "@mui/icons-material/Forum";
-// import ChatIcon from "@mui/icons-material/Chat";
+// import ForumIcon from "@mui/icons-material/Forum";
+import ChatIcon from "@mui/icons-material/Chat";
 import router from "../Routes";
 
 const Branding = () => {
   return (
     <>
-      <ForumIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+      <ChatIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
       <Typography
         variant="h6"
         noWrap
