@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import ForumIcon from "@mui/icons-material/Forum";
+// import ChatIcon from "@mui/icons-material/Chat";
 import router from "../Routes";
 
 const Branding = () => {
@@ -22,7 +23,7 @@ const Branding = () => {
           textDecoration: "none",
         }}
       >
-        CHATTER
+        Message
       </Typography>
     </>
   );
