@@ -37,7 +37,12 @@ const Header = ({ toggleTheme }: any) => {
   return (
     <AppBar
       position="fixed"
-      sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      sx={{
+        width: `calc(100% - ${drawerWidth}px)`,
+        ml: `${drawerWidth}px`,
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark" ? "#000" : "lightgreen",
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar>

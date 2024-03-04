@@ -7,7 +7,7 @@ import Snackbar from "./components/snackbar/Snackbar";
 import { useThemeToggle } from "./hooks/useThemeToggle";
 import Main from "./components/main/Main";
 import MuiDrawer from "./ui/MuiDrawer";
-import { BrowserRouter } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
   //set up hook here and pass the function down to header.
@@ -22,9 +22,11 @@ const App = () => {
           <Header toggleTheme={toggleTheme} />
           {/* <BrowserRouter> */}
           <MuiDrawer />
+
           <Guard>
             <Main />
           </Guard>
+
           {/* </BrowserRouter> */}
           <Snackbar />
         </ThemeProvider>

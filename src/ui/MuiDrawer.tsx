@@ -1,14 +1,10 @@
 import {
-  Box,
-  CssBaseline,
-  Divider,
   Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ThemeProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -18,16 +14,21 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ChatIcon from "@mui/icons-material/Chat";
 import LoginIcon from "@mui/icons-material/Login";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+// import InboxIcon from "@mui/icons-material/MoveToInbox";
+// import MailIcon from "@mui/icons-material/Mail";
 
 // Import your logo
-import Logo from "./2.webp"; // Adjust the path as necessary
-import { Link } from "react-router-dom";
+// import Logo from "./2.webp"; // Adjust the path as necessary
+// import { Link } from "react-router-dom";
 import router from "../components/Routes";
+import { useLogout } from "../hooks/useLogout";
+import { onLogout } from "../utils/logout";
+import { snackVar } from "../constants/snack";
+import { UNKNOWN_ERROR_SNACK_MESSAGE } from "../constants/errors";
 
 const drawerWidth = 240;
 
@@ -41,6 +42,8 @@ const landingStyle = {
 };
 
 export default function MuiDrawer() {
+  const { logout } = useLogout();
+
   return (
     <Drawer
       sx={{
@@ -49,6 +52,10 @@ export default function MuiDrawer() {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
+          border: "none",
+          marginLeft: "35px",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "#000" : "lightgreen",
         },
       }}
       variant="permanent"
@@ -102,6 +109,24 @@ export default function MuiDrawer() {
               <PersonAddAltIcon />
             </ListItemIcon>
             <ListItemText primary="Signup" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key="logout" disablePadding>
+          <ListItemButton
+            onClick={async () => {
+              try {
+                await logout();
+                onLogout();
+              } catch (err) {
+                snackVar(UNKNOWN_ERROR_SNACK_MESSAGE);
+              }
+            }}
+          >
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
           </ListItemButton>
         </ListItem>
 

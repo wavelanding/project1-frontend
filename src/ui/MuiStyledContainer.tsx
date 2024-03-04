@@ -14,4 +14,5 @@ export const MuiStyledContainer = styled(Container)({
   flexGrow: 1,
   bgcolor: "background.default",
   p: 3,
+  border: "none",
 });
