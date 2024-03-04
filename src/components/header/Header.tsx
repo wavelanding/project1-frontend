@@ -41,7 +41,7 @@ const Header = ({ toggleTheme }: any) => {
         width: `calc(100% - ${drawerWidth}px)`,
         ml: `${drawerWidth}px`,
         backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#000" : "lightgreen",
+          theme.palette.mode === "dark" ? "#000" : "lightgray",
       }}
     >
       <Container maxWidth="xl">

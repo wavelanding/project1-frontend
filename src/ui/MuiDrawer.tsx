@@ -55,7 +55,7 @@ export default function MuiDrawer() {
           border: "none",
           marginLeft: "35px",
           backgroundColor: (theme) =>
-            theme.palette.mode === "dark" ? "#000" : "lightgreen",
+            theme.palette.mode === "dark" ? "#000" : "#fff",
         },
       }}
       variant="permanent"

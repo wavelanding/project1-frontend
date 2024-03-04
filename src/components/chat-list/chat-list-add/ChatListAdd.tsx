@@ -44,7 +44,7 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
       >
         <Stack spacing={2}>
           <Typography variant="h6" component="h2">
-            Add Chat
+            Add Chatroom
           </Typography>
           <TextField
             label="Name"
