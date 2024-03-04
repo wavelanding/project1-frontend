@@ -1,50 +1,36 @@
-import { Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
-import { RouterProvider } from "react-router-dom";
-import router from "./components/Routes";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { ApolloProvider } from "@apollo/client";
 import client from "./constants/apollo-client";
 import Guard from "./components/auth/Guard";
 import Header from "./components/header/Header";
 import Snackbar from "./components/snackbar/Snackbar";
-import ChatList from "./components/chat-list/ChatList";
-import { usePath } from "./hooks/usePath";
 import { useThemeToggle } from "./hooks/useThemeToggle";
+import Main from "./components/main/Main";
+import MuiDrawer from "./ui/MuiDrawer";
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
-  const { path } = usePath();
-  const showChatList = path === "/" || path.includes("chats");
-
   //set up hook here and pass the function down to header.
   const { theme, toggleTheme } = useThemeToggle();
-  return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Header toggleTheme={toggleTheme} />
-        <Guard>
-          <Container maxWidth="xl" sx={{ marginTop: "1rem" }}>
-            {showChatList ? (
-              <Grid container spacing={5}>
-                <Grid item xs={12} md={5} lg={4} xl={3}>
-                  <ChatList />
-                </Grid>
-                <Grid xs={12} item md={7} lg={8} xl={9}>
-                  <Routes />
-                </Grid>
-              </Grid>
-            ) : (
-              <Routes />
-            )}
-          </Container>
-        </Guard>
-        <Snackbar />
-      </ThemeProvider>
-    </ApolloProvider>
-  );
-};
 
-const Routes = () => {
-  return <RouterProvider router={router} />;
+  return (
+    // <Box sx={{ flexGrow: 1, overflow: "auto" }}>
+    <Box sx={{ display: "flex" }}>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Header toggleTheme={toggleTheme} />
+          {/* <BrowserRouter> */}
+          <MuiDrawer />
+          <Guard>
+            <Main />
+          </Guard>
+          {/* </BrowserRouter> */}
+          <Snackbar />
+        </ThemeProvider>
+      </ApolloProvider>
+    </Box>
+  );
 };
 
 export default App;

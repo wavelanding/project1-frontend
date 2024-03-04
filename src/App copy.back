@@ -1,0 +1,95 @@
+import { Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { RouterProvider } from "react-router-dom";
+import router from "./components/Routes";
+import { ApolloProvider } from "@apollo/client";
+import client from "./constants/apollo-client";
+import Guard from "./components/auth/Guard";
+import Header from "./components/header/Header";
+import Snackbar from "./components/snackbar/Snackbar";
+import ChatList from "./components/chat-list/ChatList";
+import { usePath } from "./hooks/usePath";
+import { useThemeToggle } from "./hooks/useThemeToggle";
+import NavList from "./components/NavList";
+import HomeIcon from "@mui/icons-material/Home";
+import MessageIcon from "@mui/icons-material/Message";
+import ExploreIcon from "@mui/icons-material/Explore";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import SettingsIcon from "@mui/icons-material/Settings";
+import MailIcon from "@mui/icons-material/Mail";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
+const App = () => {
+  const { path } = usePath();
+  const showChatList = path === "/" || path.includes("chats");
+  //set up hook here and pass the function down to header.
+  const { theme, toggleTheme } = useThemeToggle();
+
+  // Define your navigation items here
+  const navItems = [
+    { label: "Home", path: "/", icon: HomeIcon },
+    { label: "Message", path: "/login", icon: MessageIcon },
+    { label: "Explore", icon: ExploreIcon, path: "/explore" },
+    { label: "Notifications", icon: NotificationsIcon, path: "/notifications" },
+    { label: "Messages", icon: MailIcon, path: "/messages" },
+    { label: "Shipping", icon: LocalShippingIcon, path: "/shipping" },
+    { label: "Settings", icon: SettingsIcon, path: "/settings" },
+    // Add more items as needed
+  ];
+
+  return (
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header toggleTheme={toggleTheme} />
+        {/* <NavList items={navItems} /> */}
+        <Grid container spacing={2}>
+          <Grid item xs={2}>
+            <NavList items={navItems} />
+          </Grid>
+          <Grid item xs={10}>
+            <Guard>
+              <Container maxWidth="xl" sx={{ marginTop: "1rem" }}>
+                {showChatList ? (
+                  <Grid container spacing={5}>
+                    <Grid item xs={12} md={5} lg={4} xl={3}>
+                      <ChatList />
+                    </Grid>
+                    <Grid item xs={12} md={7} lg={8} xl={9}>
+                      <Routes />
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Routes />
+                )}
+              </Container>
+            </Guard>
+          </Grid>
+        </Grid>
+
+        {/* <Guard>
+          <Container maxWidth="xl" sx={{ marginTop: "1rem" }}>
+            {showChatList ? (
+              <Grid container spacing={5}>
+                <Grid item xs={12} md={5} lg={4} xl={3}>
+                  <ChatList />
+                </Grid>
+                <Grid xs={12} item md={7} lg={8} xl={9}>
+                  <Routes />
+                </Grid>
+              </Grid>
+            ) : (
+              <Routes />
+            )}
+          </Container>
+        </Guard> */}
+        <Snackbar />
+      </ThemeProvider>
+    </ApolloProvider>
+  );
+};
+
+const Routes = () => {
+  return <RouterProvider router={router} />;
+};
+
+export default App;

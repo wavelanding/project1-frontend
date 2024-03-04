@@ -30,17 +30,23 @@ const unauthenticatedPages: Page[] = [
   },
 ];
 
+const drawerWidth = 240;
+
 const Header = ({ toggleTheme }: any) => {
   const authenticated = useReactiveVar(authenticatedVar);
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar>
           <Branding />
+          <MobileBranding />
+
           <MobileNavigation
             pages={authenticated ? pages : unauthenticatedPages}
           />
-          <MobileBranding />
           <Navigation pages={authenticated ? pages : unauthenticatedPages} />
 
           <FormGroup>
@@ -49,7 +55,7 @@ const Header = ({ toggleTheme }: any) => {
               label="change theme"
             />
           </FormGroup>
-          {/* <Switch onChange={toggleTheme} color="warning" title="change" /> */}
+
           {authenticated && <Settings />}
         </Toolbar>
       </Container>
