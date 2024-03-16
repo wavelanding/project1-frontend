@@ -14,7 +14,7 @@ const Login = () => {
         error={error}
       >
         <Link to={"/signup"} style={{ alignSelf: "center" }}>
-          <MUILink>Signup</MUILink>
+          <MUILink>signup</MUILink>
         </Link>
       </Auth>
     </>
