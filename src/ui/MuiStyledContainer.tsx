@@ -15,4 +15,8 @@ export const MuiStyledContainer = styled(Container)({
   bgcolor: "background.default",
   p: 3,
   border: "none",
+  height: "100vh",
+  width: "90vw",
+  padding: 0,
+  margintop: "1rem",
 });

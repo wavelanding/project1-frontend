@@ -1,4 +1,11 @@
-import { Button, Stack, TextField } from "@mui/material";
+import {
+  Button,
+  Stack,
+  TextField,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useGetMe } from "../../hooks/useGetMe";
 import { useNavigate } from "react-router";
@@ -20,6 +27,13 @@ const Auth = ({
 }: AuthProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const { data } = useGetMe();
   const navigate = useNavigate();
 
@@ -50,13 +64,26 @@ const Auth = ({
       />
       {extraFields}
       <TextField
-        type="password"
+        type={showPassword ? "text" : "password"}
         label="Password"
         variant="outlined"
         value={password}
         error={!!error}
         helperText={error}
         onChange={(event) => setPassword(event.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={togglePasswordVisibility}
+                onMouseDown={(event) => event.preventDefault()} // Prevents the button from losing focus
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <Button variant="contained" onClick={() => onSubmit({ email, password })}>
         {submitLabel}

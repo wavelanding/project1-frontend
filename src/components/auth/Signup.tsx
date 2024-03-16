@@ -32,7 +32,7 @@ const Signup = () => {
         try {
           await createUser({
             variables: {
-              createUserInput: {
+              createUserPayload: {
                 email,
                 username,
                 password,
@@ -42,6 +42,7 @@ const Signup = () => {
           await login({ email, password });
           setError("");
         } catch (err) {
+          // console.log(err);
           const errorMessage = extractErrorMessage(err);
           if (errorMessage) {
             setError(errorMessage);

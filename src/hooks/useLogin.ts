@@ -22,10 +22,43 @@ const useLogin = () => {
       body: JSON.stringify(request),
     });
     if (!res.ok) {
-      if (res.status === 401) {
-        setError("Credentials are not valid.");
-      } else {
-        setError(UNKNOWN_ERROR_MESSAGE);
+      // if (res.status === 401) {
+      //   setError("Credentials are not valid.");
+      // } else {
+      //   setError(UNKNOWN_ERROR_MESSAGE);
+      // }
+      // return;
+
+      // more informative way but maybe it's not a good idea
+      let errorMessage = UNKNOWN_ERROR_MESSAGE; // Assume a default error message
+      try {
+        const errorBody = await res.json(); // Attempt to parse JSON error response
+        if (errorBody.message) {
+          errorMessage = errorBody.message;
+        }
+      } catch (e) {
+        // If parsing fails, retain the default or previously set error message
+      }
+
+      switch (res.status) {
+        case 401:
+          setError(errorMessage || "Credentials are not valid.");
+          break;
+        case 400:
+          setError(errorMessage || "Bad request. Please check your input.");
+          break;
+        case 403:
+          setError("Access denied.");
+          break;
+        case 404:
+          setError("Requested resource not found.");
+          break;
+        case 500:
+          setError("Server error. Please try again later.");
+          break;
+        default:
+          setError(errorMessage);
+          break;
       }
       return;
     }

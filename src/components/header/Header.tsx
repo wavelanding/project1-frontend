@@ -30,7 +30,7 @@ const unauthenticatedPages: Page[] = [
   },
 ];
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const Header = ({ toggleTheme }: any) => {
   const authenticated = useReactiveVar(authenticatedVar);

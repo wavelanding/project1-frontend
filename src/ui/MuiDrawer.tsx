@@ -30,7 +30,7 @@ import { onLogout } from "../utils/logout";
 import { snackVar } from "../constants/snack";
 import { UNKNOWN_ERROR_SNACK_MESSAGE } from "../constants/errors";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const waveStyle = {
   color: "green", // Use the specific grass green color you want here
@@ -53,9 +53,8 @@ export default function MuiDrawer() {
           width: drawerWidth,
           boxSizing: "border-box",
           border: "none",
-          marginLeft: "35px",
           backgroundColor: (theme) =>
-            theme.palette.mode === "dark" ? "#000" : "#fff",
+            theme.palette.mode === "dark" ? "#000" : "lightgreen",
         },
       }}
       variant="permanent"
@@ -84,7 +83,7 @@ export default function MuiDrawer() {
         </Typography>
       </Toolbar>
       {/* <Divider /> */}
-      <List>
+      <List sx={{ paddingLeft: "40px" }}>
         <ListItem key="home" disablePadding>
           <ListItemButton onClick={() => router.navigate("/")}>
             <ListItemIcon>
